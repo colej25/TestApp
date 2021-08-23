@@ -1,0 +1,51 @@
+/* Write your CSS Here. */
+body {
+    background-color: green;
+    
+   }
+   
+   h1 {
+       text-align: center;
+       color: yellow;
+   }
+   
+   img {
+       width:50%;
+       margin-left:25%;
+       margin-right:25%;
+   }
+   
+   div {
+       text-align: center;
+   }
+   
+   .game-start button {
+       
+           box-shadow: 0 9px 18px 0 #333333, 0 8px 24px 0 #333333;
+           
+   }
+   
+   #submit {
+       color: red;
+   }
+   
+   #next-question {
+       width:50%;
+       margin-left:25%;
+       margin-right:25%;
+       color: blue;
+   }
+   
+   h2 {
+       text-align: center;
+       text-decoration: underline;
+   }
+   
+   h3 {
+       text-align: center;
+       text-decoration: underline;
+   }
+   
+   .answer-text {
+      color: yellow;
+      font-size: xxx-large;
