@@ -3,25 +3,28 @@ let submitButton = document.getElementById("submit");
 let currentPoints = 0;
 let totalPoints = document.querySelector(".counter-display");
 let startGame = document.querySelector(".game-start");
-let current = 0;
+let currentIndex = 0;
 let answer = "";
 
+// Set correct answer gifs
 let gif1 =
-  "https://media1.giphy.com/media/ciwK6u5YqvhstdD3vu/giphy.gif?cid=ecf05e47fi8eyb4bs0b66xcpg8x8878z51tgbfkdmhp37ecm&rid=giphy.gif&ct=g";
+  "https://media4.giphy.com/media/3o6UB3VhArvomJHtdK/200.webp?cid=ecf05e47kege4iapjyy4t3s3v0j5vk0klla5d1873sqt506c&rid=200.webp&ct=g";
 let gif2 =
-  "https://media3.giphy.com/media/AhXw4MktwT7C16OsmG/giphy.gif?cid=ecf05e47fi8eyb4bs0b66xcpg8x8878z51tgbfkdmhp37ecm&rid=giphy.gif&ct=g";
+  "https://media0.giphy.com/media/3ohzdIuqJoo8QdKlnW/giphy.gif?cid=ecf05e47kege4iapjyy4t3s3v0j5vk0klla5d1873sqt506c&rid=giphy.gif&ct=g";
 let gif3 =
-  "https://media1.giphy.com/media/JRDAaRchARJSWGPC8V/giphy.gif?cid=ecf05e47rgaamfma4kq9gbahyshtselpmz6hybjkox83g528&rid=giphy.gif&ct=g";
+  "https://media0.giphy.com/media/3ohhweiVB36rAlqVCE/giphy.gif?cid=ecf05e47kege4iapjyy4t3s3v0j5vk0klla5d1873sqt506c&rid=giphy.gif&ct=g";
 let gif4 =
-  "https://media1.giphy.com/media/Y2gIlHMMse3KKKcDbS/giphy.gif?cid=ecf05e47lvemnylv7hetzfo5f0yvqzysr14ebh9zhiwgdlks&rid=giphy.gif&ct=g";
+  "https://media2.giphy.com/media/vvbGMpbhZMcHSsD50w/giphy.gif?cid=ecf05e47kege4iapjyy4t3s3v0j5vk0klla5d1873sqt506c&rid=giphy.gif&ct=g";
 let gif5 =
-  "https://media2.giphy.com/media/fjxya7CZKYt2ntEtYP/giphy.gif?cid=ecf05e4799us9rrb30yozxsgmp23g2dty3jqngk51fvzja17&rid=giphy.gif&ct=g";
-let wrongGif1 =
-  "https://media1.giphy.com/media/vNNsw7IsdQfowDotga/giphy.gif?cid=ecf05e47fi8eyb4bs0b66xcpg8x8878z51tgbfkdmhp37ecm&rid=giphy.gif&ct=g";
+  "https://media4.giphy.com/media/fkD36jhiqzJ9m/giphy.gif?cid=ecf05e473knw4iss4cwphafddjf221cqie7iegwuzyq13az1&rid=giphy.gif&ct=g";
+
+// Set incorrect answer gifs
+  let wrongGif1 =
+  "https://media2.giphy.com/media/hPPx8yk3Bmqys/giphy.gif?cid=ecf05e471zw7xlwwbrsmipbtrlcdvvvlqt95m868k69ei501&rid=giphy.gif&ct=g";
 let wrongGif2 =
-  "https://media1.giphy.com/media/d8QPbam0yloxId5U8G/giphy.gif?cid=ecf05e4799us9rrb30yozxsgmp23g2dty3jqngk51fvzja17&rid=giphy.gif&ct=g";
+  "https://media1.giphy.com/media/4OJFCEeGzYGs0/giphy.gif?cid=ecf05e471zw7xlwwbrsmipbtrlcdvvvlqt95m868k69ei501&rid=giphy.gif&ct=g";
 let wrongGif3 =
-  "https://media2.giphy.com/media/idLKIOk7PxXWgFjTnF/giphy.gif?cid=ecf05e47h6zqvj7hjb7hgn9t2xsg04s30s0gtxfltk4uom0f&rid=giphy.gif&ct=g";
+  "https://media4.giphy.com/media/f0BaErqmljUd2/giphy.gif?cid=ecf05e47m872td7wgvoy1fs2x1xoo8gugjyby2w5ulchpb6b&rid=giphy.gif&ct=g";
 let gifArray = [gif1, gif2, gif3, gif4, gif5];
 let gifArrayWrong = [wrongGif1, wrongGif2, wrongGif3];
 
@@ -38,17 +41,17 @@ function randomWrongGif() {
 fetch("https://jservice.io/api/random")
   .then((response) => response.json())
   .then((data) => {
-    let category = data[current].category_id;
+    let category = data[currentIndex].category_id;
     categorydiv = document.querySelector(".category");
-    categorydiv.append(data[current].category.title);
+    categorydiv.append(data[currentIndex].category.title);
 
     fetch("https://jservice.io/api/clues?category=" + category)
       .then((response) => response.json())
       .then((data) => {
-        let question = data[current].question;
+        let question = data[currentIndex].question;
         let questionDisplay = document.querySelector(".question-box");
         questionDisplay.innerHTML = question;
-        answer = data[current].answer;
+        answer = data[currentIndex].answer;
 
         console.log(answer);
         arrayOfQuestions = data;
@@ -60,7 +63,7 @@ submitButton.onclick = function (event) {
   let inputText = document.getElementById("userinput");
 
   if (inputText.value === answer) {
-    current += 1;
+    currentIndex += 1;
 
     var docs = document.getElementById("img");
     docs.setAttribute("src", randomGif());
@@ -79,8 +82,8 @@ submitButton.onclick = function (event) {
       event.preventDefault();
 
       let questionDisplay = document.querySelector(".question-box");
-      questionDisplay.innerHTML = arrayOfQuestions[current].question;
-      answer = arrayOfQuestions[current].answer;
+      questionDisplay.innerHTML = arrayOfQuestions[currentIndex].question;
+      answer = arrayOfQuestions[currentIndex].answer;
       console.log(answer);
       inputText.value = inputText.defaultValue;
 
@@ -112,6 +115,7 @@ startGame.onclick = function (event) {
   startNewGame();
 };
 
+// Update points
 function updatePointsCounter() {
   currentPoints += 1;
   totalPoints.innerHTML = "<h3>Total Points: </h3>" + currentPoints;
